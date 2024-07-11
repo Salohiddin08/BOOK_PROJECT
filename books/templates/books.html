@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content%}
+<h1 style="text-align: center;" class="middle mt-3 mb-3"><a href="{%url 'books'%}">books</a></h1>
+    <form method="" class="d-flex" style="margin-bottom: 10px;">
+        <input name="q" class="me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form> 
+    <div class="container">
+        <div class="row">
+            {% for book in books %}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <img src="{{ book.cover_pic.url }}" class="card-img-top" alt="{{ book.title }} cover">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'book_detail' id=book.id %}">{{ book.title }}</a></h5>
+                        <p class="card-text">{{ book.description | slice:100 }}</p>
+                    </div>
+                </div> 
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

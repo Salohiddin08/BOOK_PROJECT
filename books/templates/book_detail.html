@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1 style="text-align: center;" class="middle mt-3 mb-3">Book Detail Page</h1>
+<div class="row">
+    <div class="col-md-3 mt-4 middle">
+        <div class="card h-100">
+            <img src="{{ book.cover_pic.url }}" class="card-img-top" alt="{{ book.title }} cover" style="object-fit: cover; height: 100%;">
+        </div>
+    </div>
+    <div class="col-md-6 mt-4 ms-4 d-flex flex-column">
+        <div>
+            <h3>{{ book.title }}</h3>
+            <p>{{ book.description }}</p>
+        </div>
+    </div>
+</div>
+<form action="{% url 'comment' id=book.id %}" method="post" style="margin-top: 10px;">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit">Add Comment</button>
+</form>
+
+{% if book.comments.exists %}
+    <h4 style="margin-top: 20px;" class="middle">Comments</h4>
+    <hr>
+    {% for comment in book.comments.all %}
+        <div class="row mb-3 middle">
+            <div class="col-1 me-3">
+                {% if comment.user.image %}
+                    <img style="width: 50px; height: 50px; border-radius: 50%;" class="small-profile-pic" src="{{ comment.user.image.url }}">
+                {% else %}
+                    <!-- Provide a default profile picture or placeholder image -->
+                    <img style="width: 50px; height: 50px; border-radius: 50%;" class="small-profile-pic" src="Untitled.png">
+                {% endif %}
+            </div>
+            <div class="col-7">
+                <b>{{ comment.user.username }}</b> rated it {{ comment.star }} stars <span class="fw-lighter">{{ comment.created_at }}</span>
+                <p class="mt-2 font-monospace">{{ comment.text }}</p>
+                {% if comment.user == request.user %}
+                    <a href="{% url 'cooment_edit' book_id=book.id comment_id=comment.id %}">
+                    <button type="button" class="btn btn-primary">Edit</button>
+                    </a>
+                    <a href="{% url 'book_delete' book_id=book.id comment_id=comment.id %}">
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% endblock content %}
