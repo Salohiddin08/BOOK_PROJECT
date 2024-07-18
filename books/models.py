@@ -25,4 +25,17 @@ class Comment(models.Model):
     
     def __str__(self) -> str:
         return str(self.star)
+from django.db import models
+
+from django.db import models
+
+class books(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    isbn = models.CharField(max_length=14)
+    cover_pic = models.ImageField(upload_to='book_covers/')
+    
+    def __str__(self):
+        return self.title
+
 

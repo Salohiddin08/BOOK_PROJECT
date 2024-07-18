@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+ {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
 <h1 style="text-align: center;" class="middle mt-3 mb-3">Book Detail Page</h1>
@@ -12,6 +12,10 @@
         <div>
             <h3>{{ book.title }}</h3>
             <p>{{ book.description }}</p>
+        </div>
+        <div class="mt-3">
+            <a href="{% url 'delete_book' book.id %}" class="btn btn-danger">Delete Book</a>
+            <a href="{% url 'edit_book' book.id %}" class="btn btn-primary">Edit Book</a>
         </div>
     </div>
 </div>

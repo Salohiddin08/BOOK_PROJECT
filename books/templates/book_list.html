@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 style="text-align: center;" class="middle mt-3 mb-3"><a class="btn btn-primary" href="{% url 'books' %}">books</a></h1>
+<h1 style="text-align: center;" class="middle mt-3 mb-3"><a href="{% url 'books' %}">books</a></h1>
 
-<!-- Add Book button linking to admin panel -->
+<!-- Add Book button linking to the add book page -->
 <div style="text-align: center; margin-bottom: 20px;">
     <a href="{% url 'add_book' %}" class="btn btn-primary">Add Book</a>
 </div>
+
 <form method="" class="d-flex" style="margin-bottom: 10px;">
     <input name="q" class="me-2" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success" type="submit">Search</button>
@@ -21,6 +22,9 @@
                 <div class="card-body">
                     <h5 class="card-title"><a href="{% url 'book_detail' id=book.id %}">{{ book.title }}</a></h5>
                     <p class="card-text">{{ book.description|slice:100 }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'delete_book' book.id %}" class="btn btn-danger">Delete</a>
                 </div>
             </div> 
         </div>

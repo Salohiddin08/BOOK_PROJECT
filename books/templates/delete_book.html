@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Delete Book</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <p>Are you sure you want to delete the book "{{ book.title }}"?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a href="{% url 'books' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
